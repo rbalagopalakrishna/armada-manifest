@@ -50,6 +50,9 @@ data:
   chart_name: multus
   release: multus
   namespace: kube-system
+  timeout: 600
+  wait:
+    timeout: 600
   protected:
     continue_processing: false
   install:
@@ -73,8 +76,9 @@ data:
   chart_name: sriov
   release: sriov
   namespace: kube-system
+  timeout: 600
   wait:
-    timeout: 50
+    timeout: 600
   protected:
     continue_processing: false
   install:
@@ -98,6 +102,9 @@ data:
   chart_name: helm-toolkit
   release: helm-toolkit
   namespace: helm-tookit
+  timeout: 600
+  wait:
+    timeout: 600
   values: {}
   source:
     type: git
