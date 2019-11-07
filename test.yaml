@@ -1,35 +1,56 @@
+#---
+#schema: armada/Chart/v1
+#metadata:
+#  schema: metadata/Document/v1
+#  name: rook-ceph
+#data:
+#  chart_name: rook-ceph
+#  release: rook-ceph
+#  namespace: rook-ceph
+#  wait:
+#    timeout: 3600
+#  install:
+#    no_hooks: false
+#  upgrade:
+#    no_hooks: false
+#  values: {}
+#  source:
+#    type: tar
+#    location: https://charts.rook.io/release/rook-ceph-v1.1.4.tgz
+#    subpath: rook-ceph
+#    reference: null
+#  dependencies:
+#    - helm-toolkit
+#---
+#schema: armada/Chart/v1
+#metadata:
+#  schema: metadata/Document/v1
+#  name: metallb
+#data:
+#  chart_name: metallb
+#  release: metallb
+#  namespace: default
+#  protected:
+#    continue_processing: false
+#  install:
+#    no_hooks: false
+#  upgrade:
+#    no_hooks: false
+#  values: {}
+#  source:
+#    type: git
+#    location: https://github.com/helm/charts.git
+#    subpath: stable/metallb
+#    reference: master
 ---
 schema: armada/Chart/v1
 metadata:
   schema: metadata/Document/v1
-  name: rook-ceph
+  name: sriov
 data:
-  chart_name: rook-ceph
-  release: rook-ceph
-  namespace: rook-ceph
-  wait:
-    timeout: 3600
-  install:
-    no_hooks: false
-  upgrade:
-    no_hooks: false
-  values: {}
-  source:
-    type: tar
-    location: https://charts.rook.io/release/rook-ceph-v1.1.4.tgz
-    subpath: rook-ceph
-    reference: null
-  dependencies:
-    - helm-toolkit
----
-schema: armada/Chart/v1
-metadata:
-  schema: metadata/Document/v1
-  name: metallb
-data:
-  chart_name: metallb
-  release: metallb
-  namespace: default
+  chart_name: sriov
+  release: sriov
+  namespace: kube-system
   protected:
     continue_processing: false
   install:
@@ -39,11 +60,34 @@ data:
   values: {}
   source:
     type: git
-    location: https://github.com/helm/charts.git
-    subpath: stable/metallb
+    location: https://github.com/rbalagopalakrishna/helmcharts.git
+    subpath: testing/sriov
     reference: master
   dependencies:
-    - infra-helm-toolkit
+    - helm-toolkit
+#---
+#schema: armada/Chart/v1
+#metadata:
+#  schema: metadata/Document/v1
+#  name: multus
+#data:
+#  chart_name: multus
+#  release: multus
+#  namespace: kube-system
+#  protected:
+#    continue_processing: false
+#  install:
+#    no_hooks: false
+#  upgrade:
+#    no_hooks: false
+#  values: {}
+#  source:
+#    type: git
+#    location: https://github.com/rbalagopalakrishna/helmcharts.git
+#    subpath: testing/multus
+#    reference: master
+#  dependencies:
+#    - helm-toolkit
 ---
 schema: armada/Chart/v1
 metadata:
@@ -68,8 +112,10 @@ data:
   description: Deploys Simple Service
   sequenced: False
   chart_group:
-    - rook-ceph
-    - metallb
+#    - rook-ceph
+#    - metallb
+    - sriov
+#    - multus
 ---
 schema: armada/Manifest/v1
 metadata:
