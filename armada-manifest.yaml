@@ -35,11 +35,17 @@ data:
     no_hooks: false
   upgrade:
     no_hooks: false
-  values: {}
+  values:
+    configInline:
+      address-pools:
+      - name: default
+        protocol: layer2
+        addresses:
+        - 192.168.1.240-192.168.1.250
   source:
     type: git
     location: https://github.com/rbalagopalakrishna/helmcharts.git
-    subpath: testing/metallb
+    subpath: charts/metallb
     reference: master
 ---
 schema: armada/Chart/v1
@@ -62,11 +68,10 @@ data:
   source:
     type: git
     location: https://github.com/rbalagopalakrishna/helmcharts.git
-    subpath: testing/sriov
+    subpath: charts/sriov
     reference: master
   dependencies:
     - helm-toolkit
-#    - multus
 ---
 schema: armada/Chart/v1
 metadata:
@@ -88,7 +93,7 @@ data:
   source:
     type: git
     location: https://github.com/rbalagopalakrishna/helmcharts.git
-    subpath: testing/multus
+    subpath: charts/multus
     reference: master
   dependencies:
     - helm-toolkit
