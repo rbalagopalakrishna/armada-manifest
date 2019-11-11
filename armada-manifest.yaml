@@ -38,35 +38,9 @@ data:
   values: {}
   source:
     type: git
-    location: https://github.com/helm/charts.git
+    location: https://github.com/rbalagopalakrishna/helmcharts.git
     subpath: stable/metallb
     reference: master
----
-schema: armada/Chart/v1
-metadata:
-  schema: metadata/Document/v1
-  name: multus
-data:
-  chart_name: multus
-  release: multus
-  namespace: kube-system
-  timeout: 600
-  wait:
-    timeout: 600
-  protected:
-    continue_processing: false
-  install:
-    no_hooks: false
-  upgrade:
-    no_hooks: false
-  values: {}
-  source:
-    type: git
-    location: https://github.com/rbalagopalakrishna/helmcharts.git
-    subpath: testing/multus
-    reference: master
-  dependencies:
-    - helm-toolkit
 ---
 schema: armada/Chart/v1
 metadata:
@@ -90,6 +64,33 @@ data:
     type: git
     location: https://github.com/rbalagopalakrishna/helmcharts.git
     subpath: testing/sriov
+    reference: master
+  dependencies:
+    - helm-toolkit
+    - multus
+---
+schema: armada/Chart/v1
+metadata:
+  schema: metadata/Document/v1
+  name: multus
+data:
+  chart_name: multus
+  release: multus
+  namespace: kube-system
+  timeout: 600
+  wait:
+    timeout: 600
+  protected:
+    continue_processing: false
+  install:
+    no_hooks: false
+  upgrade:
+    no_hooks: false
+  values: {}
+  source:
+    type: git
+    location: https://github.com/rbalagopalakrishna/helmcharts.git
+    subpath: testing/multus
     reference: master
   dependencies:
     - helm-toolkit
@@ -122,7 +123,6 @@ data:
   chart_group:
     - rook-ceph
     - metallb
-    - multus
     - sriov
 ---
 schema: armada/Manifest/v1
