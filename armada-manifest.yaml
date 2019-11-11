@@ -39,7 +39,7 @@ data:
   source:
     type: git
     location: https://github.com/rbalagopalakrishna/helmcharts.git
-    subpath: stable/metallb
+    subpath: testing/metallb
     reference: master
 ---
 schema: armada/Chart/v1
@@ -67,7 +67,6 @@ data:
     reference: master
   dependencies:
     - helm-toolkit
-    - multus
 ---
 schema: armada/Chart/v1
 metadata:
@@ -123,6 +122,7 @@ data:
   chart_group:
     - rook-ceph
     - metallb
+    - multus
     - sriov
 ---
 schema: armada/Manifest/v1
