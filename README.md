@@ -11,6 +11,7 @@ $ clone https://github.com/rbalagopalakrishna/armada-manifest.git
 $ cd ~/armada-manifest
 
 Copy armada manifest to Docker Container
+
 $ sudo docker cp armada-manifest.yaml armada:/armada/armada-manifest.yaml
 
 Run
