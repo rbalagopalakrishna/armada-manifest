@@ -76,6 +76,29 @@ data:
 schema: armada/Chart/v1
 metadata:
   schema: metadata/Document/v1
+  name: rook-ceph-cluster
+data:
+  chart_name: rook-ceph-cluster
+  release: rook-ceph-cluster
+  namespace: rook-ceph
+  wait:
+    timeout: 600
+  protected:
+    continue_processing: false
+  install:
+    no_hooks: false
+  upgrade:
+    no_hooks: false
+  values: {}
+  source:
+    type: git
+    location: https://github.com/rbalagopalakrishna/helmcharts.git
+    subpath: charts/rook-ceph-cluster
+    reference: master
+---
+schema: armada/Chart/v1
+metadata:
+  schema: metadata/Document/v1
   name: multus
 data:
   chart_name: multus
@@ -118,15 +141,34 @@ data:
 schema: armada/ChartGroup/v1
 metadata:
   schema: metadata/Document/v1
-  name: armada-group
+  name: ceph-rook-group
+data:
+  description: Deploys Rook-Operator and Cluster Service
+  sequenced: True
+  chart_group:
+    - rook-ceph
+    - rook-ceph-cluster
+---
+schema: armada/ChartGroup/v1
+metadata:
+  schema: metadata/Document/v1
+  name: network-group
+data:
+  description: Deploys Multus and SRIOV Service
+  sequenced: True
+  chart_group:
+    - multus
+    - sriov
+---
+schema: armada/ChartGroup/v1
+metadata:
+  schema: metadata/Document/v1
+  name: metallb-group
 data:
   description: Deploys Simple Service
   sequenced: True
   chart_group:
-    - multus
-    - rook-ceph
     - metallb
-    - sriov
 ---
 schema: armada/Manifest/v1
 metadata:
@@ -135,4 +177,6 @@ metadata:
 data:
   release_prefix: armada
   chart_groups:
-    - armada-group
+    - metallb-group
+    - network-group
+    - ceph-rook-group
