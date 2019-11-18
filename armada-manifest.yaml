@@ -37,11 +37,15 @@ data:
     no_hooks: false
   values:
     configInline:
+      peers:
+      - peer-address: 10.10.93.129
+        peer-asn: 64501
+        my-asn: 64500
       address-pools:
       - name: default
-        protocol: layer2
+        protocol: bgp
         addresses:
-        - 192.168.1.240-192.168.1.250
+        - 10.10.93.192/27
   source:
     type: git
     location: https://github.com/rbalagopalakrishna/helmcharts.git
@@ -89,7 +93,9 @@ data:
     no_hooks: false
   upgrade:
     no_hooks: false
-  values: {}
+  values:
+    mon:
+      count: 1
   source:
     type: git
     location: https://github.com/rbalagopalakrishna/helmcharts.git
@@ -158,7 +164,8 @@ data:
   sequenced: True
   chart_group:
     - multus
-    - sriov
+    - helm-toolkit
+#    - sriov
 ---
 schema: armada/ChartGroup/v1
 metadata:
@@ -178,5 +185,5 @@ data:
   release_prefix: armada
   chart_groups:
     - metallb-group
-    - network-group
-    - ceph-rook-group
+#    - network-group
+#    - ceph-rook-group
